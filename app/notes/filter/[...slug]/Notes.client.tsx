@@ -17,15 +17,18 @@ import NoteForm from '@/components/NoteForm/NoteForm';
 interface NotesProps {
   initialSearch: string;
   initialPage: number;
+  tag: string | undefined;
 }
 
-function Notes({ initialSearch, initialPage }: NotesProps) {
+function Notes({ initialSearch, initialPage, tag }: NotesProps) {
   const [search, setSearch] = useState<string>(initialSearch);
   const [page, setPage] = useState<number>(initialPage);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const { data, isLoading } = useQuery<FetchNotesResponse>({
-    queryKey: ['noteList', search, page],
-    queryFn: () => fetchNotes(search, page),
+    queryKey: tag
+      ? ['noteList', search, page, tag]
+      : ['noteList', search, page],
+    queryFn: () => fetchNotes(search, page, tag),
     placeholderData: keepPreviousData,
 
     throwOnError: true,

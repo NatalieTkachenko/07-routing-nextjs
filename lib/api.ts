@@ -29,14 +29,15 @@ const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 export async function fetchNotes(
   search?: string,
-  page?: number
+  page?: number,
+  tag?: string
 ): Promise<FetchNotesResponse> {
   console.log(`Я отримую нотатки із сторінки ${page}`);
 
   await delay(1000);
   try {
     const response = await instance.get<FetchNotesResponse>('notes', {
-      params: { search, page },
+      params: { search, page, tag },
     });
     console.log(response.data);
     return { notes: response.data.notes, totalPages: response.data.totalPages };
