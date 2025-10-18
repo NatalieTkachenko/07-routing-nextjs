@@ -2,6 +2,7 @@ import { fetchNoteById } from '@/lib/api';
 import css from './NotePreview.module.css';
 
 import Modal from '@/components/Modal/Modal';
+import BackBtn from '@/components/BackBtn/BackBtn';
 
 interface ModalPageProps {
   params: Promise<{ id: string }>;
@@ -21,6 +22,7 @@ export default async function ModalPage({ params }: ModalPageProps) {
           <p className={css.content}>{data?.content}</p>
           <p className={css.date}>{data?.createdAt}</p>
         </div>
+        <BackBtn />
       </div>
     </Modal>
   );
